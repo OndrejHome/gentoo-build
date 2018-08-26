@@ -96,5 +96,6 @@ export GB_TIMEZONE=UTC
 
 ### grub
 
+# export GB_GRUB_SERIAL=1
 # export GB_GRUB_CONSOLE=1
 # export GB_GRUB_NO_TIMEOUT=1

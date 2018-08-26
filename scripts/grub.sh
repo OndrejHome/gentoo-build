@@ -29,6 +29,21 @@ if [ "_${GB_GRUB_CONSOLE}" = "_1" ]; then
 EOF
 fi
 
+if [ "_${GB_GRUB_SERIAL}" = "_1" ]; then
+  chroot ${GB_ROOT} /bin/bash <<-'EOF'
+  source /etc/profile
+  set -x
+  set -e
+
+  if ! grep -q '^# gentoo-build GB_GRUB_SERIAL' /etc/default/grub; then
+    echo '# gentoo-build GB_GRUB_SERIAL' >> /etc/default/grub
+    echo 'GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX}  console=ttyS0,115200n8"' >> /etc/default/grub
+    echo 'GRUB_TERMINAL="serial console"' >> /etc/default/grub
+    echo 'GRUB_SERIAL_COMMAND="serial --speed=115200"' >> /etc/default/grub
+  fi
+EOF
+fi
+
 if [ "_${GB_GRUB_NO_TIMEOUT}" = "_1" ]; then
   chroot ${GB_ROOT} /bin/bash <<-'EOF'
   source /etc/profile
