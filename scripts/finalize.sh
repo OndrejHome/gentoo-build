@@ -19,4 +19,8 @@ set -e
 rm -rf /usr/portage
 rm -fv /stage3.tar.bz2
 EOF
+
+## Trim empty space - useful for thinly provision storage
+fstrim -v /mnt/gentoo
+fstrim -v /mnt/gentoo/boot
 fi
