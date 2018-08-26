@@ -2,7 +2,7 @@
 set -x
 set -e
 
-if [ -e /dev/${GB_ROOTDEVICE}1 -a -e /dev/${GB_ROOTDEVICE}2 -a -e /dev/${GB_ROOTDEVICE}3 ]; then
+if [ -e /dev/${GB_ROOTDEVICE}1 -a -e /dev/${GB_ROOTDEVICE}2 -a -e /dev/${GB_ROOTDEVICE}3 -a -e /dev/${GB_ROOTDEVICE}4 ]; then
   echo "skipping partition"
   exit 0
 fi
@@ -11,6 +11,9 @@ if [ -d /sys/firmware/efi ]; then
   sgdisk \
     -n 1:0:+256M -t 1:ef00 -c 1:"efi-system" \
     -n 2:0:+${GB_BOOT_PARTITION_SIZE:-256M} -t 2:8300 -c 2:"linux-boot" \
+    -n 3:0:+1 \
+    -n 4:0:+${GB_SWAP_PARTITION_SIZE:-256M}  -t 4:8200 -c 4:"swap"  \
+    -d 3 \
     -n 3:0:0     -t 3:8300 -c 3:"linux-root" \
     -p /dev/${GB_ROOTDEVICE}
 
@@ -19,10 +22,16 @@ else
   sgdisk \
     -n 1:0:+${GB_BOOT_PARTITION_SIZE:-128M} -t 1:8300 -c 1:"linux-boot" \
     -n 2:0:+32M  -t 2:ef02 -c 2:"bios-boot"  \
+    -n 3:0:+1 \
+    -n 4:0:+${GB_SWAP_PARTITION_SIZE:-256M}  -t 4:8200 -c 4:"swap"  \
+    -d 3 \
     -n 3:0:0     -t 3:8300 -c 3:"linux-root" \
     -p /dev/${GB_ROOTDEVICE}
 fi
+# note: we create a dummy partition 3 and delete it after creating swap partition to get behaviour where we can have partition 3 filling all available space
 
+
+mkswap /dev/${GB_ROOTDEVICE}${GB_SWAP_PARTITION}
 mkfs.ext4 /dev/${GB_ROOTDEVICE}${GB_BOOT_PARTITION}
 
 case "${GB_ROOT_FSTYPE}" in
