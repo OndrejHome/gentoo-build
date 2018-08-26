@@ -36,6 +36,7 @@ fi
 ./scripts/networking.sh
 ./scripts/hostname.sh
 ./scripts/user.sh
+./scripts/root_user.sh
 
 ./scripts/sudo.sh
 ./scripts/vixie-cron.sh

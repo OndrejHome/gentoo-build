@@ -74,6 +74,10 @@ export GB_USER_LOGIN=gentoo
 # optional, if omit, no password given
 export GB_USER_PASSWORD=gentoo-build
 
+### Root user
+# optional, if ommited you will need normal user with sudo to access 'root'
+export GB_ROOT_USER_PASSWORD=gentoo-build-root
+
 # skip sudoers
 # export GB_SKIP_SUDOERS=1
 
