@@ -15,7 +15,12 @@ if eselect profile show | grep -q systemd; then
   fi
 fi
 
-profile="$(find /usr/portage/profiles/default/linux/amd64 -maxdepth 2 -name 'systemd' -type d|head -n1|sed -e's|^/usr/portage/profiles/||')"
+if [ -z "${GB_ESELECT_PROFILE}" ]; then
+  # try to guess the profile which we wanna use if not specified
+  profile="$(find /usr/portage/profiles/default/linux/amd64 -maxdepth 2 -name 'systemd' -type d|head -n1|sed -e's|^/usr/portage/profiles/||')"
+else
+  profile="${GB_ESELECT_PROFILE}"
+fi
 eselect profile set "${profile}"
 
 if [ -e /usr/lib/systemd/systemd ]; then

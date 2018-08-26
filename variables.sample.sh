@@ -87,6 +87,9 @@ export GB_TIMEZONE=UTC
 # export GB_DISTCC_HOSTS=""
 # export GB_DISTCC_MAKEOPTS=""
 
+### System profile
+# export GB_ESELECT_PROFILE="default/linux/amd64/17.0/systemd"
+
 ### grub
 
 # export GB_GRUB_CONSOLE=1
