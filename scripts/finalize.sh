@@ -7,9 +7,17 @@ source /etc/profile
 set -x
 set -e
 rm -f /etc/resolv.conf
-ln -snf /run/systemd/resolve/resolv.conf /etc/resolv.conf
 true > /etc/machine-id
 EOF
+
+if [ "$GB_INIT" = "systemd" ]; then
+  chroot ${GB_ROOT} /bin/bash <<-'EOF'
+source /etc/profile
+set -x
+set -e
+ln -snf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+EOF
+fi
 
 if [ "_$GB_REMOVE_PORTAGE" = "_1" ]; then
   chroot ${GB_ROOT} /bin/bash <<-'EOF'

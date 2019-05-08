@@ -33,7 +33,11 @@ fi
 ./scripts/portage.sh
 ./scripts/timezone.sh
 ./scripts/locale.sh
-./scripts/systemd.sh
+if [ "${GB_INIT}" = "openrc" ]; then
+  ./scripts/openrc.sh
+else
+  ./scripts/systemd.sh
+fi
 ./scripts/networking.sh
 ./scripts/hostname.sh
 ./scripts/user.sh

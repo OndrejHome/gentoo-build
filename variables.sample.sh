@@ -10,6 +10,9 @@
 export GB_STAGE3=latest
 # this should be ftp, when using latest
 export GB_STAGE3_MIRROR="ftp://ftp.iij.ad.jp/pub/linux/gentoo"
+export GB_INIT='systemd'
+# build openrc system instead of systemd
+#export GB_INIT='openrc'
 
 ### Root devices
 

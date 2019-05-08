@@ -59,7 +59,8 @@ if [ "_${GB_GRUB_NO_TIMEOUT}" = "_1" ]; then
 EOF
 fi
 
-chroot ${GB_ROOT} /bin/bash <<-'EOF'
+if [ "$GB_INIT" = "systemd" ]; then
+  chroot ${GB_ROOT} /bin/bash <<-'EOF'
 source /etc/profile
 set -x
 set -e
@@ -68,6 +69,13 @@ if ! grep -q '^# gentoo-build systemd' /etc/default/grub; then
   echo '# gentoo-build systemd' >> /etc/default/grub
   echo 'GRUB_CMDLINE_LINUX="${GRUB_CMDLINE_LINUX} init=/usr/lib/systemd/systemd"' >> /etc/default/grub
 fi
+EOF
+fi
+
+chroot ${GB_ROOT} /bin/bash <<-'EOF'
+source /etc/profile
+set -x
+set -e
 
 if grep -q ' /boot ' /proc/mounts; then
   if ! grep ' /boot ' /proc/mounts | grep -q rw; then

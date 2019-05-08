@@ -16,6 +16,9 @@ if [ -n "$GB_ADD_STEPS" ]; then
   true
 fi
 
+if [ -z "$GB_ESELECT_PROFILE" -a "$GB_INIT" != "systemd" ]; then
+  err "GB_ESELECT_PROFILE is required when not using systemd"
+fi
 [ -z "$GB_STAGE3" ] && err "GB_STAGE3 is required"
 [ -z "$GB_STAGE3_MIRROR" ] && err "GB_STAGE3_MIRROR is required"
 [ -z "$GB_ROOTDEVICE" ] && err "GB_ROOTDEVICE is required"
