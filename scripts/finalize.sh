@@ -25,8 +25,11 @@ if [ "_$GB_REMOVE_PORTAGE" = "_1" ]; then
 source /etc/profile
 set -x
 set -e
-# cleanup /usr/portage so new one needs to be downloaded when system is used
-rm -rf /usr/portage
+# cleanup repositories accrodign to locations from /etc/portage/make.conf
+source /etc/portage/make.conf
+rm -rf $PORTDIR
+rm -rf $DISTDIR
+rm -rf $PKGDIR
 # add the CHOST into /etc/portage/make.conf as it normally comes set from profile in /usr/portage/profiles
 echo 'CHOST="x86_64-pc-linux-gnu"' >> /etc/portage/make.conf
 rm -fv /stage3.tar.bz2
