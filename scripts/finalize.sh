@@ -32,7 +32,7 @@ rm -rf $DISTDIR
 rm -rf $PKGDIR
 # add the CHOST into /etc/portage/make.conf as it normally comes set from profile in /usr/portage/profiles
 echo 'CHOST="x86_64-pc-linux-gnu"' >> /etc/portage/make.conf
-rm -fv /stage3.tar.bz2
+rm -fv /stage3.tar.xz
 EOF
 
 ## Trim empty space - useful for thinly provision storage
