@@ -8,6 +8,7 @@ set -x
 set -e
 emerge -pv '${GB_KERNEL_PACKAGE}' || env CONFIG_PROTECT_MASK=/etc emerge --noreplace --autounmask-write -v '${GB_KERNEL_PACKAGE}' || true
 emerge --noreplace -v '${GB_KERNEL_PACKAGE}'
+eselect kernel set 1
 EOF
 
 if [ -n "${GB_KERNEL_TARBALL}" ]; then
