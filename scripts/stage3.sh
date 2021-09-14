@@ -15,9 +15,9 @@ if [ "$GB_INIT" = "systemd" ]; then
   fi
 else
   if [ "${GB_STAGE3}" = "latest" ]; then
-    wget -O "${GB_ROOT}/stage3.tar.xz" "${GB_STAGE3_MIRROR}"'/releases/amd64/autobuilds/current-stage3-amd64/stage3-amd64-2*.tar.xz'
+    wget -O "${GB_ROOT}/stage3.tar.xz" "${GB_STAGE3_MIRROR}"'/releases/amd64/autobuilds/current-stage3-amd64/stage3-amd64-openrc-2*.tar.xz'
   else
-    wget -O "${GB_ROOT}/stage3.tar.xz" "${GB_STAGE3_MIRROR}/releases/amd64/autobuilds/${GB_STAGE3}/stage3-amd64-${GB_STAGE3}.tar.xz"
+    wget -O "${GB_ROOT}/stage3.tar.xz" "${GB_STAGE3_MIRROR}/releases/amd64/autobuilds/${GB_STAGE3}/stage3-amd64-openrc-${GB_STAGE3}.tar.xz"
   fi
 
 fi
