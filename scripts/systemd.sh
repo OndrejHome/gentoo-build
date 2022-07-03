@@ -2,7 +2,11 @@
 set -x
 set -e
 
-chroot "${GB_ROOT}" /bin/bash -x -e <<-'EOF'
+chroot "${GB_ROOT}" /bin/bash <<-'EOF'
+source /etc/profile
+set -x
+set -e
+
 # Bump to 236
 if eselect profile show | grep -q systemd; then
   if [ -x /usr/bin/systemctl -a "_${GB_SYSTEMD_232}" = "_1" ]; then
