@@ -9,6 +9,7 @@ set -e
 rm -f /etc/resolv.conf
 true > /etc/machine-id
 emerge -c gentoo-sources
+rm -fv /stage3.tar.xz
 EOF
 
 if [ "$GB_INIT" = "systemd" ]; then
@@ -32,10 +33,9 @@ rm -rf $DISTDIR
 rm -rf $PKGDIR
 # add the CHOST into /etc/portage/make.conf as it normally comes set from profile in /usr/portage/profiles
 echo 'CHOST="x86_64-pc-linux-gnu"' >> /etc/portage/make.conf
-rm -fv /stage3.tar.xz
 EOF
+fi
 
 ## Trim empty space - useful for thinly provision storage
-fstrim -v /mnt/gentoo
-fstrim -v /mnt/gentoo/boot
-fi
+fstrim -v --quiet-unsupported /mnt/gentoo
+fstrim -v --quiet-unsupported /mnt/gentoo/boot
