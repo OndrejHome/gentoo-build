@@ -30,9 +30,23 @@ else
 fi
 # note: we create a dummy partition 3 and delete it after creating swap partition to get behaviour where we can have partition 3 filling all available space
 
+case "${GB_BOOT_FSTYPE}" in
+ext4)
+  mkfs.ext4 /dev/${GB_ROOTDEVICE}${GB_BOOT_PARTITION}
+  ;;
+xfs)
+  mkfs.xfs /dev/${GB_ROOTDEVICE}${GB_BOOT_PARTITION}
+  ;;
+btrfs)
+  mkfs.btrfs /dev/${GB_ROOTDEVICE}${GB_BOOT_PARTITION}
+  ;;
+*)
+  echo "unknown fs type ${GB_BOOT_FSTYPE}" >/dev/stderr
+  exit 1
+  ;;
+esac
 
 mkswap /dev/${GB_ROOTDEVICE}${GB_SWAP_PARTITION}
-mkfs.ext4 /dev/${GB_ROOTDEVICE}${GB_BOOT_PARTITION}
 
 case "${GB_ROOT_FSTYPE}" in
 ext4)
