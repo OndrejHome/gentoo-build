@@ -33,13 +33,18 @@ ln -sfv /usr/lib64/systemd/system/systemd-networkd.service /etc/systemd/system/m
 ln -sfv /usr/lib64/systemd/system/systemd-resolved.service /etc/systemd/system/multi-user.target.wants/systemd-resolved.service
 EOF
 else
+  iface="${GB_IFACE}"
+  if [ -z "${iface}" ]; then
+    iface="$(ip -o r get 8.8.8.8|sed -e's/ \+/ /g'|sed -re 's/^.*dev ([^ ]+) .*$/\1/')"
+    echo "NOTICE: assuming default iface is ${iface}"
+  fi
 
   chroot ${GB_ROOT} /bin/bash <<-'EOF'
 source /etc/profile
 set -x
 set -e
 emerge --noreplace net-misc/netifrc
-ln -s /etc/init.d/net.lo /etc/init.d/net.eth0
-ln -s /etc/init.d/net.eth0 /etc/runlevels/default
+ln -s /etc/init.d/net.lo /etc/init.d/net.${iface}
+ln -s /etc/init.d/net.${iface} /etc/runlevels/default
 EOF
 fi
