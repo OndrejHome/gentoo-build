@@ -27,6 +27,9 @@ fi
 ${groupadd}
 useradd ${useradd_args}
 
+# do not enforce password qulity checks
+sed -i 's/enforce=.*/enforce=none/' /etc/security/passwdqc.conf
+
 if printenv GB_USER_PASSWORD | grep -q .; then
   ( echo -n '${GB_USER_LOGIN}:' && printenv GB_USER_PASSWORD ) | chpasswd
 fi
