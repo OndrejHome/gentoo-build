@@ -43,7 +43,7 @@ else
 source /etc/profile
 set -x
 set -e
-emerge --noreplace net-misc/netifrc
+emerge --noreplace net-misc/netifrc net-misc/dhcpcd
 ln -s /etc/init.d/net.lo /etc/init.d/net.${iface}
 ln -s /etc/init.d/net.${iface} /etc/runlevels/default
 EOF
