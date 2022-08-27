@@ -1,4 +1,7 @@
 #!/bin/bash
+set -x
+set -e
+
 if echo "${1}" | grep -q '^/'; then
   output="${1}"
 else
@@ -8,7 +11,10 @@ fi
 cd "$(dirname $0)"
 
 cat > $output <<-'EOF'
-#!/bin/bash -e
+#!/bin/bash
+set -x
+set -e
+
 dest=${1:-gentoo-build}
 mkdir $dest
 if ! sed --version 2>&1 | grep -q 'GNU sed'; then
