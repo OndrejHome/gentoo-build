@@ -7,7 +7,8 @@ source /etc/profile
 set -x
 set -e
 emerge -pv '${GB_KERNEL_PACKAGE}' || env CONFIG_PROTECT_MASK=/etc emerge --noreplace --autounmask-write -v '${GB_KERNEL_PACKAGE}' || true
-emerge --noreplace -v '${GB_KERNEL_PACKAGE}'
+echo 'sys-kernel/installkernel grub' > /etc/portage/package.use/installkernel
+emerge --noreplace -v '${GB_KERNEL_PACKAGE}' sys-kernel/installkernel
 eselect kernel set 1
 EOF
 
