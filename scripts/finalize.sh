@@ -26,8 +26,10 @@ if [ "_$GB_REMOVE_PORTAGE" = "_1" ]; then
 source /etc/profile
 set -x
 set -e
-# cleanup repositories accrodign to locations from /etc/portage/make.conf
-source /etc/portage/make.conf
+# cleanup repositories and package related caches
+PORTDIR=$(portageq get_repo_path / gentoo)
+DISTDIR=$(portageq distdir)
+PKGDIR=$(portageq pkgdir)
 rm -rf $PORTDIR
 rm -rf $DISTDIR
 rm -rf $PKGDIR
