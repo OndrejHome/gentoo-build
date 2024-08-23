@@ -12,7 +12,7 @@ if [ -d /sys/firmware/efi ]; then
   echo 'sys-boot/grub grub_platforms_efi-32 grub_platforms_efi-64' > /etc/portage/package.use/grub
 fi
 
-emerge --noreplace -v sys-boot/grub
+emerge --noreplace -vN sys-boot/grub
 EOF
 
 if [ "_${GB_GRUB_CONSOLE}" = "_1" ]; then
